@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project.3 Weather Box</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Hind+Vadodara:300,400,500,600,700'>
+  <link rel="stylesheet" href="./stemp.css">
+</head>
+<body>
+<div class="daybox">
+  <label>
+    <input id="switch_night" type="checkbox"/>
+    <div class="top">
+      <svg class="temsvg">
+        <text x="0" y="100">26°</text>
+        <circle cx="0" cy="100" r="3"></circle>
+        <!-- Other temperature points -->
+        <polyline points="0,100 70,80 140,60 210,70 280,100 350,110 420,80 490,90 560,90 630,100"></polyline>
+      </svg>
+      <div class="text_area">
+        <div class="temperature"> <span id="temperature"></span></div>
+        <div class="humidity">Humidity: <span id="humidity"></span></div>
+        <div class="infos">
+          
+        </div>
+      </div>
+      <div class="moon"></div>
+      <div class="cloud">
+        <div class="rain"></div>
+        <div class="rain rain2"></div>
+        <div class="rain rain3"></div>
+      </div>
+    </div>
+    <div class="bottom">
+      <!-- Days of the week -->
+    </div>
+  </label>
+</div>
+<script src="./sctemp.js"></script>
+</body>
+</html>

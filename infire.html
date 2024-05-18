@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flame Control</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="./infire.css">
+</head>
+<body>
+  <div class="g-candle">
+    <div class="g-body"></div>
+    <div class="g-fire-box">
+      <div class="g-fire" id="flameContainer">
+        <!-- Use JavaScript to toggle the flame class -->
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <div class="g-ball" id="flame1"></div>
+        <div class="g-ball" id="flame2"></div>
+        <div class="g-ball" id="flame3"></div>
+        <div class="g-ball" id="flame4"></div>
+        <div class="g-ball" id="flame5"></div>
+        <!-- Add more g-ball divs as needed -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const airurl = "https://api.thingspeak.com/channels/2541257/feeds.json?results=1";
+    async function updateFlame() {
+      const response = await fetch(airurl);
+      const data = await response.json();
+      const flameValue = data.feeds[0].field3;
+
+      if (flameValue == 0) {
+        // Flame is off
+        document.getElementById("flameContainer").classList.remove("g-fire");
+      } else {
+        // Flame is on
+        document.getElementById("flameContainer").classList.add("g-fire");
+      }
+    }
+
+    // Update the flame initially
+    updateFlame();
+
+    // Update the flame every 5 seconds (for example)
+    setInterval(updateFlame, 5000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Animation with ThingSpeak API</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background: url('https://images.unsplash.com/photo-1485599352433-e476c850f2a9?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ') no-repeat center center fixed;
+      background-size: cover;
+    }
+    #streetlight {
+      position: absolute;
+      height: 100vh;
+      left: -100px;
+      bottom: 0px;
+      filter: brightness(0.1);
+    }
+    #rat {
+      position: absolute;
+      left: 100px;
+      bottom: 5%;
+      width: 27px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img id="streetlight" src="https://images.unsplash.com/photo-1485599352433-e476c850f2a9?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Streetlight">
+  <div id="rat"></div>
+  <script>
+    // Function to fetch data from ThingSpeak API and adjust streetlight brightness
+    async function fetchDataAndAnimate() {
+      const airurl = "https://api.thingspeak.com/channels/2541257/feeds.json?results=1";
+      try {
+        const response = await fetch(airurl);
+        const data = await response.json();
+        const motion = data.feeds[0].field3;
+
+        // Create a GSAP timeline for the streetlight animation
+        var action = gsap.timeline();
+
+        if (motion == 0) {
+          // Set streetlight brightness very high for 5 seconds when motion is detected
+          action.to("#streetlight", {
+            filter: 'brightness(5)', // Increase brightness significantly
+            duration: 5,
+            ease: 'none'
+          });
+        } else {
+          // Set streetlight brightness low
+          action.to("#streetlight", {
+            filter: 'brightness(0.2)', // Decrease brightness
+            duration: 5,
+            ease: 'none'
+          });
+        }
+
+        // Streetlight movement animation
+        gsap.to("#streetlight", {
+          x: 100,
+          duration: 8,
+          ease: 'none',
+          repeat: -1,
+          yoyo: true
+        });
+
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    }
+
+    // Initialize the rat animation
+    gsap.set("#rat", { rotation: 45, scale: 1.3, transformOrigin: 'center' });
+
+    var ww = $(window).width();
+    var rat = gsap.to("#rat", {
+      x: ww * 0.6,
+      y: -50,
+      duration: 8,
+      ease: 'bounce.inOut',
+      repeat: 15
+    });
+
+    // Fetch data and animate immediately
+    fetchDataAndAnimate();
+  </script>
+</body>
+</html>
